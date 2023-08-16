@@ -56,5 +56,8 @@
   "license": "ISC",
   "devDependencies": {
     "@babel/runtime": "^7.22.10"
+  },
+  "overrides": {
+    "react-refresh": "0.11.0"
   }
 }
