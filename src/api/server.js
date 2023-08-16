@@ -1,53 +1,36 @@
 const express = require('express');
-const bodyParser = require('body-parser');
 const mysql = require('mysql');
-const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
 
 const db = mysql.createConnection({
-  host: 'localhost',
+  host: '127.0.0.1',
   user: 'root',
-  password: 'password',
-  database: 'your_database_name'
+  password: 'Hinanawi4462',
+  database: 'gmw'
 });
 
-db.connect((err) => {
-  if (err) throw err;
-  console.log('Connected to the database');
-});
+db.connect();
 
-app.get('/user/:id', (req, res) => {
-  const sql = `SELECT * FROM users WHERE id = ${req.params.id}`;
-  db.query(sql, (err, result) => {
-    if (err) throw err;
-    res.send(result);
-  });
-});
-
-app.put('/user/:id', (req, res) => {
-    // Extract info from request body
-    const { username, tag, rank, company, kills, attendance, balance, create_at } = req.body;
-    
-    // SQL Query to update the data. Make sure to protect against SQL injection.
-    const sql = `UPDATE users SET username = ?, tag = ?, rank = ?, company = ?, kills = ?, attendance = ?, balance = ?, create_at = ? WHERE id = ?`;
-    
-    // Execute the query
-    db.query(sql, [username, tag, rank, company, kills, attendance, balance, create_at, req.params.id], (err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send("Server Error");
-      } else {
-        res.send({ message: 'Successfully updated user data!', data: result });
-      }
+// Fetch all user details
+app.get('http://localhost:3000/users', (req, res) => {
+    db.query('SELECT * FROM users', (err, results) => {
+        if(err) throw err;
+        res.json(results);
     });
-  });
+});
 
-// Additional routes for updating user info, changing profile picture, etc.
+// Update user details (this is just a sample for username)
+app.put('/users/:id', (req, res) => {
+    let updateQuery = 'UPDATE users SET username = ? WHERE id = ?';
+    db.query(updateQuery, [req.body.username, req.params.id], (err, result) => {
+        if(err) throw err;
+        res.json({message: 'User updated successfully'});
+    });
+});
 
-const PORT = 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(3000, () => {
+    console.log('Server started on port 3000');
 });
