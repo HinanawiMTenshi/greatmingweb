@@ -29,6 +29,9 @@ function HomePage() {
             <Helmet>
                 <title>大明军团主界面</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+                <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css" />
+                <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css" />
             </Helmet>
             <div className="homeHeader">
                 <h1>大明军团</h1>
@@ -39,9 +42,7 @@ function HomePage() {
                     <Link href="/src/pages/development">成员</Link>
                 </div>
                 <div className="homeLogin">
-                    <a href="/src/pages/login">
-                        <button>登录</button>
-                    </a>
+                    <a className="button" href="/src/pages/login">登录</a>
                 </div>
             </div>
             <div className="carousel-container">
@@ -53,10 +54,12 @@ function HomePage() {
             </div>
             <div className="announcement">
                 <h1>公告</h1>
-                <p>最新军衔制度正式出台，该文件已放入群文件中入队必读文件夹。
-                    请将群内及游戏内昵称换为新军衔格式：
-                    GreatMing_所属营_ID_军衔
-                    新军衔详情请咨询你所属营的管理</p>
+                <blockquote>
+                    <p><em>最新军衔制度正式出台，该文件已放入群文件中入队必读文件夹。
+                        请将群内及游戏内昵称换为新军衔格式：
+                        GreatMing_所属营_ID_军衔
+                        新军衔详情请咨询你所属营的管理</em></p>
+                </blockquote>
             </div>
             <div className="shop">
                 <h1>商店</h1>
