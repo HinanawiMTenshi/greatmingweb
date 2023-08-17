@@ -1,9 +1,25 @@
+
+ 
+const cors = require('cors');
+
 const express = require('express');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const bodyParser = require('body-parser');
 
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
+app.set('trust proxy', 1);
+app.use(cors({
+    origin: 'http://localhost:3001'
+  }));
+  
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*'); // Allow any origin
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+});
+
 
 const db = mysql.createConnection({
   host: '127.0.0.1',
@@ -15,7 +31,7 @@ const db = mysql.createConnection({
 db.connect();
 
 // Fetch all user details
-app.get('http://localhost:3000/users', (req, res) => {
+app.get('/users', (req, res) => {
     db.query('SELECT * FROM users', (err, results) => {
         if(err) throw err;
         res.json(results);

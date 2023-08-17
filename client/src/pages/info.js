@@ -6,8 +6,9 @@ function Info() {
   const [userId, setUserId] = useState(1); // Example id
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/user/${userId}`)
+    axios.get('http://localhost:3000/users')
       .then(response => {
+        console.log(response.data);
         setUser(response.data[0]); // Assuming data is an array with one user
       })
       .catch(error => {
@@ -22,6 +23,12 @@ function Info() {
       {/* Example data rendering */}
       <p>Username: {user.username}</p>
       <p>Tag: {user.tag}</p>
+      <p>Rank: {user.ranks}</p>
+      <p>Company: {user.company}</p>
+      <p>Kills: {user.kills}</p>
+      <p>Attandance: {user.attandance}</p>
+      <p>Balance: {user.balance}</p>
+      <p>Creat at: {user.create_at}</p>
       {/* Add other data fields similarly */}
       
       {/* Add edit buttons, image upload functionality, etc. */}
