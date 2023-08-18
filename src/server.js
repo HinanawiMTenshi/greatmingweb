@@ -64,6 +64,15 @@ app.use('/login', (req, res) => {
     });
 
 
+    app.get('/products', (req, res) => {
+        //console.log("Fetching details for:", req.params.username);
+        db.query('SELECT * FROM product', (err, results) => {
+            if(err) throw err;
+            res.json(results);
+            
+        });
+    });
+
 // Fetch all user details
 app.get('/users/:username', (req, res) => {
     console.log("Fetching details for:", req.params.username);
