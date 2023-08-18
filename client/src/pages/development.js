@@ -1,7 +1,7 @@
 import React from 'react';
 import Helmet from "react-helmet"
 
-function HelloWorldPage() {
+function Development() {
     return (
         <div>
             <Helmet>
@@ -15,4 +15,4 @@ function HelloWorldPage() {
     );
 }
 
-export default HelloWorldPage;
+export default Development;
