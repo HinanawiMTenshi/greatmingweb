@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter, Routes ,Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Preferences from './components/Preferences';
-import Login from './components/Login';
+import Login from "./pages/Login";
 import Info from './components/Info';
 import useToken from './useToken';
 import { CartProvider } from "./contexts/CartContext";
@@ -43,6 +43,7 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Preferences" element={<Preferences />} />
           <Route path="/Info" element={<Info currentUser={currentUser} />} />
+            <Route path="/Login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
