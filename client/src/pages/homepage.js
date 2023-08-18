@@ -70,11 +70,28 @@ function HomePage() {
             </div>
             <div className="hotspot">
                 <h1>热点</h1>
+                <blockquote>
+                    <p><em>大古的B站视频：<a href="https://www.bilibili.com/video/BV1Cu411G7VX/?share_source=copy_web&vd_source=717e252d12ec490be1cd613be97ab875">你好，我们九周年了</a></em></p>
+                </blockquote>
+                <blockquote>
+                    <p><em>大古的B站视频：<a href="https://www.bilibili.com/video/BV1Uj411o7qd/?share_source=copy_web&vd_source=717e252d12ec490be1cd613be97ab875">B门一个剑圣我说真的</a></em></p>
+                </blockquote>
             </div>
             <div className="greatmingimg">
             </div>
             <div className="group">
-                <h1>五神三</h1>
+                <h1>五军营</h1>
+                <blockquote>
+                    <p><em>营长：HW</em></p>
+                </blockquote>
+                <h1>神机营</h1>
+                <blockquote>
+                    <p><em>营长：Gustav</em></p>
+                </blockquote>
+                <h1>三千营</h1>
+                <blockquote>
+                    <p><em>营长：PBONE</em></p>
+                </blockquote>
             </div>
 
         </div>
