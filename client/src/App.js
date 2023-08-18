@@ -43,7 +43,6 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Preferences" element={<Preferences />} />
           <Route path="/Info" element={<Info currentUser={currentUser} />} />
-            <Route path="/Login" element={<Login />} />
         </Routes>
       </BrowserRouter>
     </div>
