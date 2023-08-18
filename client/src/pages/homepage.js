@@ -36,7 +36,6 @@ function HomePage() {
             <div className="homeHeader">
                 <h1>大明军团</h1>
                 <div className="homeNav">
-                    <Link href="/src/pages/development">主页</Link>
                     <Link href="/src/pages/development">日历</Link>
                     <Link href="/src/pages/development">军饷</Link>
                     <Link href="/src/pages/development">商城</Link>
@@ -64,9 +63,6 @@ function HomePage() {
             </div>
             <div className="shop">
                 <h1>商店</h1>
-                <blockquote>
-                    <p><em>正德和智祖的nzz已经上市</em></p>
-                </blockquote>
             </div>
             <div className="hotspot">
                 <h1>热点</h1>

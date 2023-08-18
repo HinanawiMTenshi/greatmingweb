@@ -56,7 +56,7 @@ body {
 .carousel-container {
     position: absolute;
     top: 100px;
-    left: 30%;
+    left: 500px;
     width: 800px;
     height: 372px;
     border: 1px solid #ccc;
@@ -90,49 +90,25 @@ body {
 
 .announcement h1 {
     font-family: 'JetBrains Mono', sans-serif; /* Replace with your desired font */
-    font-size: 50px;    /*标题字体大小*/
+    font-size: 50px;
 }
 
 .shop{
     position: absolute;
-    top: 600px;
+    top: 590px;
     left: 0px;
     width: 300px;
     height: 500px;
     border: 1px solid #ccc;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.shop h1 {
-    font-family: 'JetBrains Mono', sans-serif; /* Replace with your desired font */
-    font-size: 50px;    /*标题字体大小*/
 }
 
 .hotspot{
     position: absolute;
-    top: 600px;
-    left: 25%;
+    top: 590px;
+    left: 400px;
     width: 1000px;
     height: 500px;
     border: 1px solid #ccc;
-
-
-}
-.hotspot h1 {
-    font-family: 'JetBrains Mono', sans-serif; /* Replace with your desired font */
-    font-size: 50px;
-    margin: 0; /* Remove default margin for h1 */
-    text-align: center; /* Center text horizontally */
-
-}
-.hotspot p{
-    font-family: 'JetBrains Mono', sans-serif; /* Replace with your desired font */
-    font-size: 30px;
-    margin: 0; /* Remove default margin for h1 */
-    text-align: center; /* Center text horizontally */
 }
 
 .greatmingimg{
@@ -146,28 +122,11 @@ body {
     background-repeat: no-repeat;
 }
 
-.group {
+.group{
     position: absolute;
-    top: 400px;
+    top: 390px;
     right: 0;
     width: 300px;
     height: 700px;
     border: 1px solid #ccc;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center; /* Center content vertically */
-}
-
-.group h1 {
-    font-family: 'JetBrains Mono', sans-serif; /* Replace with your desired font */
-    font-size: 50px;
-    margin: 0; /* Remove default margin for h1 */
-    text-align: center; /* Center text horizontally */
-}
-.group p{
-    font-family: 'JetBrains Mono', sans-serif; /* Replace with your desired font */
-    font-size: 20px;
-    margin: 0; /* Remove default margin for h1 */
-    text-align: center; /* Center text horizontally */
 }
