@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
+import Info from './pages/info';
+import HomePage from './pages/homepage';
+import App from "./App";
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom'
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <App></ App>,
+  <App />,
 
   document.getElementById('root')
 )
