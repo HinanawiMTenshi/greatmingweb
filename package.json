@@ -37,7 +37,7 @@
     "eject": "react-scripts eject",
     "server": "node ./src/server.js",
     "client": "node start-client.js",
-    "start2": "concurrently \"npm run server\" \"set PORT=3001 && npm run client\""
+    "start2": "concurrently \"npm run server\" \"export PORT=3001 && npm run client\""
   },
   "eslintConfig": {
     "extends": [

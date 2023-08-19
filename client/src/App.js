@@ -8,7 +8,8 @@ import Info from './components/Info';
 import useToken from './useToken';
 import { CartProvider } from "./contexts/CartContext";
 import Product from "./components/Product";
-import Cart from "./components/Cart";
+import Cart from "./pages/Cart";
+import HomePage from "./pages/homepage";
 
 function App() {
   const { token, setToken } = useToken();
@@ -31,15 +32,16 @@ function App() {
     
     <CartProvider>
       <div className="App">
-        {products.map(product => (
-          <Product key={product.id} {...product} />
-        ))}
-        <Cart />
-      </div>
-      <div className="wrapper">
-      <h1>Application</h1>
+      {/*  {products.map(product => (*/}
+      {/*    <Product key={product.id} {...product} />*/}
+      {/*  ))}*/}
+      {/*  <Cart />*/}
+      {/*</div>*/}
+      {/*<div className="wrapper">*/}
+      {/*<h1>Application</h1>*/}
       <BrowserRouter>
         <Routes>
+            <Route path="/Home" element={<HomePage />} />
           <Route path="/Dashboard" element={<Dashboard />} />
           <Route path="/Preferences" element={<Preferences />} />
           <Route path="/Info" element={<Info currentUser={currentUser} />} />

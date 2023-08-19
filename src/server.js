@@ -26,8 +26,8 @@ app.use((req, res, next) => {
 const db = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
-  password: 'Hinanawi4462',
-  database: 'gmw'
+  password: '123456',
+  database: 'GreatMingWeb'
 });
 
 db.connect();
