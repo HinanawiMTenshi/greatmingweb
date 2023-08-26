@@ -36,10 +36,10 @@ function HomePage() {
             <div className="homeHeader">
                 <h1>大明军团</h1>
                 <div className="homeNav">
-                    <Link href="/src/pages/development">日历</Link>
-                    <Link href="/src/pages/development">军饷</Link>
-                    <Link href="/src/pages/development">商城</Link>
-                    <Link href="/src/pages/development">成员</Link>
+                    <Link to="/src/pages/development">日历</Link>
+                    <Link to="/src/pages/development">军饷</Link>
+                    <Link to="/src/pages/development">商城</Link>
+                    <Link to="/src/pages/development">成员</Link>
                 </div>
                 <div className="homeLogin">
                     <a className="button" href="/src/pages/login">登录</a>

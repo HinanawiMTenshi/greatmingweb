@@ -4,8 +4,10 @@ import { BrowserRouter, Routes ,Route } from 'react-router-dom';
 import Dashboard from './components/Dashboard';
 import Preferences from './components/Preferences';
 import Login from "./pages/Login";
-import Info from './components/Info';
+import Info from './pages/info';
 import useToken from './useToken';
+import Homepage from "./pages/homepage";
+import Development from "./pages/development";
 import { CartProvider } from "./contexts/CartContext";
 import Product from "./components/Product";
 import Cart from "./components/Cart";
@@ -22,31 +24,38 @@ function App() {
       .then((data) => setProducts(data));
   }, []);
 
-  if(!token) {
-    return <Login setToken={setToken} setCurrentUser={setCurrentUser}/>
-  }
+  // if(!token) {
+  //   return <Login setToken={setToken} setCurrentUser={setCurrentUser}/>
+  // }
   //console.log(currentUser);
   return (
-
-    
-    <CartProvider>
       <div className="App">
-        {products.map(product => (
-          <Product key={product.id} {...product} />
-        ))}
-        <Cart />
+          <div className="wrapper">
+              {/*<h1>Application</h1>*/}
+              <BrowserRouter>
+                  <Routes>
+                      {/* 所有用户都可以访问Homepage */}
+                      {/*似乎可以分为两个Homepage，一个是游客访问的，将部分链接指向Login，另一个是真正的主界面*/}
+                      <Route path="/" element={<Homepage />} />
+                      <Route path="/Homepage" element={<Homepage />} />
+                      <Route path="/Development" element={<Development />} />
+                      {/* 登录用户的受保护路由 */}
+                      {token && (
+                          <>
+                              <Route path="/Dashboard" element={<Dashboard />} />
+                              <Route path="/Preferences" element={<Preferences />} />
+                              <Route path="/Info" element={<Info currentUser={currentUser} />} />
+                          </>
+                      )}
+
+                      {/* 未登录用户显示登录页 */}
+                      {!token && (
+                          <Route path="/Login" element={<Login setToken={setToken} setCurrentUser={setCurrentUser} />} />
+                      )}
+                  </Routes>
+              </BrowserRouter>
+          </div>
       </div>
-      <div className="wrapper">
-      <h1>Application</h1>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/Dashboard" element={<Dashboard />} />
-          <Route path="/Preferences" element={<Preferences />} />
-          <Route path="/Info" element={<Info currentUser={currentUser} />} />
-        </Routes>
-      </BrowserRouter>
-    </div>
-    </CartProvider>
   );
 }
 
