@@ -3,7 +3,7 @@ import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 import Helmet from "react-helmet"
 import "./homepage.css"
 
-function HomePage() {
+function Homepage({currentUser = ""}) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const images = [
         'https://bbs-static.miyoushe.com/static/2023/08/15/c69737026de88fd63ee17a0c6d9d8192_6738484146570679023.jpg',
@@ -36,13 +36,18 @@ function HomePage() {
             <div className="homeHeader">
                 <h1>大明军团</h1>
                 <div className="homeNav">
+                    <Link to="/Homepage">主页</Link>
                     <Link to="/src/pages/development">日历</Link>
-                    <Link to="/src/pages/development">军饷</Link>
                     <Link to="/src/pages/development">商城</Link>
                     <Link to="/src/pages/development">成员</Link>
+                    <Link to="/Info">个人信息</Link>
                 </div>
                 <div className="homeLogin">
-                    <a className="button" href="/src/pages/login">登录</a>
+                    {currentUser ? (
+                        <p>欢迎，{currentUser}！</p>
+                    ) : (
+                        <Link to="/Login" className="button">登录</Link>
+                    )}
                 </div>
             </div>
             <div className="carousel-container">
@@ -94,4 +99,4 @@ function HomePage() {
     );
 }
 
-export default HomePage;
+export default Homepage;

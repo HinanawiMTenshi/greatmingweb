@@ -35,16 +35,17 @@ function App() {
               <BrowserRouter>
                   <Routes>
                       {/* 所有用户都可以访问Homepage */}
-                      {/*似乎可以分为两个Homepage，一个是游客访问的，将部分链接指向Login，另一个是真正的主界面*/}
-                      <Route path="/" element={<Homepage />} />
-                      <Route path="/Homepage" element={<Homepage />} />
+                      {/*分为两个Homepage，一个是游客访问的，将部分链接指向Login，另一个是真正的主界面*/}
+                      <Route path="/" element={<Homepage currentUser={currentUser} />} />
                       <Route path="/Development" element={<Development />} />
+                      <Route path="/Login" element={<Login setToken={setToken} setCurrentUser={setCurrentUser} />} />
                       {/* 登录用户的受保护路由 */}
                       {token && (
                           <>
                               <Route path="/Dashboard" element={<Dashboard />} />
                               <Route path="/Preferences" element={<Preferences />} />
                               <Route path="/Info" element={<Info currentUser={currentUser} />} />
+                              <Route path="/Homepage" element={<Homepage currentUser={currentUser} />} />
                           </>
                       )}
 

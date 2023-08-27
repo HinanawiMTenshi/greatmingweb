@@ -17,18 +17,18 @@ function Info({ currentUser }) {
                     setUser(response.data[0]);
                     setTimeout(() => {
                         setLoading(false);  // Set loading to false after a delay
-                    }, 3000);
+                    }, 2000);
                 })
                 .catch(error => {
                     console.log(error);
                     setTimeout(() => {
                         setLoading(false);  // Also set loading to false after a delay in case of an error
-                    }, 3000);
+                    }, 2000);
                 });
         } else {
             setTimeout(() => {
                 setLoading(false);  // If currentUser is not available, we also set loading to false after a delay
-            }, 3000);  // If currentUser is not available, we also set loading to false to indicate no data is coming.
+            }, 2000);  // If currentUser is not available, we also set loading to false to indicate no data is coming.
         }
     }, [currentUser]);
 
@@ -41,14 +41,14 @@ function Info({ currentUser }) {
             <div className="homeHeader">
                 <h1>大明军团</h1>
                 <div className="homeNav">
-                    <Link href="/src/pages/development">主页</Link>
-                    <Link href="/src/pages/development">日历</Link>
-                    <Link href="/src/pages/development">军饷</Link>
-                    <Link href="/src/pages/development">商城</Link>
-                    <Link href="/src/pages/development">成员</Link>
+                    <Link to="/Homepage">主页</Link>
+                    <Link to="/src/pages/development">日历</Link>
+                    <Link to="/src/pages/development">商城</Link>
+                    <Link to="/src/pages/development">成员</Link>
+                    <Link to="/Info">个人信息</Link>
                 </div>
                 <div className="homeLogin">
-                    <a className="button" href="/src/pages/login">登录</a>
+                    <p>{currentUser}</p>
                 </div>
             </div>
             <div className="info">
@@ -57,7 +57,7 @@ function Info({ currentUser }) {
                 {loading ? (  // 有条件地渲染加载内容
                     <div>
                         <div className="loading-spinner"></div>
-                        <p>传说中这个加载圈仅仅是为了炫耀才延长了3秒</p>
+                        <p>听说智祖喜欢borgo，只是不愿意表达</p>
                     </div>
                 ) : (
                     <table>

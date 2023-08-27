@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 //import './components/Login.css';
 import PropTypes from 'prop-types';
 import Helmet from "react-helmet"
@@ -16,6 +17,7 @@ async function loginUser(credentials) {
    }
 
 export default function Login({ setToken  }) {
+    const navigate = useNavigate(); // 用于导航的钩子
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [currentUser, setCurrentUser] = useState(null);
@@ -28,9 +30,14 @@ export default function Login({ setToken  }) {
           password
         });
         setToken(response);
+        setCurrentUser(response.user.username); // 设置当前用户
         sessionStorage.setItem('currentUser', response.user.username);
         //console.log(response.user.username);
         //console.log(currentUser);
+        // 成功登录后导航到 Homepage
+        navigate('/Homepage');
+        // 跳转后刷新页面，以重新渲染组件，显示欢迎信息
+        window.location.reload();
       }
 
     
