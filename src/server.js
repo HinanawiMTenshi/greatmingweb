@@ -73,6 +73,27 @@ app.use('/login', (req, res) => {
         });
     });
 
+app.post('/register', (req, res) => {
+    const { username, tag, ranks, company, kills, attendance, balance, password , enrollmentTime} = req.body;
+
+    // 在此处添加逻辑来验证用户输入，例如检查用户名是否已存在等。
+
+    // 将用户信息插入数据库或执行其他必要的注册逻辑。
+    const insertQuery = 'INSERT INTO users (username, tag, ranks, company, kills, attendance, balance, password, enrollmentTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    db.query(
+        insertQuery,
+        [username, tag, ranks, company, kills, attendance, balance, password, enrollmentTime],
+        (err, result) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: '注册时发生错误' });
+            } else {
+                res.status(200).json({ message: '注册成功' });
+            }
+        }
+    );
+});
+
 // Fetch all user details
 app.get('/users/:username', (req, res) => {
     console.log("Fetching details for:", req.params.username);

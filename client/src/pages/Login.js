@@ -21,8 +21,10 @@ export default function Login({ setToken  }) {
     const [username, setUserName] = useState();
     const [password, setPassword] = useState();
     const [currentUser, setCurrentUser] = useState(null);
-    
 
+    const handleRegisterClick = () => {
+        navigate('/Register');
+    };
     const handleSubmit = async e => {
         e.preventDefault();
         const response = await loginUser({
@@ -65,7 +67,7 @@ export default function Login({ setToken  }) {
 
                 <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                     <button className="button button-primary" type="submit">登录</button>
-                    <button className="button button-outline">去注册</button>
+                    <button className="button button-outline" onClick={handleRegisterClick}>去注册</button>
                 </div>
 
                 </form>

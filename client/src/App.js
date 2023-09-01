@@ -8,9 +8,11 @@ import Info from './pages/info';
 import useToken from './useToken';
 import Homepage from "./pages/homepage";
 import Development from "./pages/development";
+import Register from "./pages/register";
 import { CartProvider } from "./contexts/CartContext";
 import Product from "./components/Product";
 import Cart from "./components/Cart";
+
 
 function App() {
   const { token, setToken } = useToken();
@@ -39,6 +41,7 @@ function App() {
                       <Route path="/" element={<Homepage currentUser={currentUser} />} />
                       <Route path="/Development" element={<Development />} />
                       <Route path="/Login" element={<Login setToken={setToken} setCurrentUser={setCurrentUser} />} />
+                      <Route path="/Register" element={<Register />} />
                       {/* 登录用户的受保护路由 */}
                       {token && (
                           <>
@@ -46,6 +49,7 @@ function App() {
                               <Route path="/Preferences" element={<Preferences />} />
                               <Route path="/Info" element={<Info currentUser={currentUser} />} />
                               <Route path="/Homepage" element={<Homepage currentUser={currentUser} />} />
+                              {/*<Route path="/Register" element={<Register />} />*/}
                           </>
                       )}
 

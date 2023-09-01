@@ -94,6 +94,10 @@ function Info({ currentUser }) {
                         </tr>
                         <tr>
                             <td>入队时间</td>
+                            <td>{user.enrollmentTime}</td>
+                        </tr>
+                        <tr>
+                            <td>账号创建时间</td>
                             <td>{user.create_at}</td>
                         </tr>
                         </tbody>
