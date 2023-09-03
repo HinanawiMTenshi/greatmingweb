@@ -5,7 +5,7 @@ import Helmet from "react-helmet"
 import "./Register.css"
 
 async function registerUser(credentials) {
-    return fetch('http://localhost:3000/register', {
+    return fetch('http://39.101.76.47:3000/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -49,7 +49,7 @@ export default function Register() {
         // setToken(response);
         // Assuming the registration process also logs in the user
         // You can navigate to the homepage or login page as needed.
-        // navigate('/Homepage');
+        navigate('/Login');
     };
 
     return (
@@ -64,6 +64,7 @@ export default function Register() {
             <div className="register-wrapper">
                 <fieldset>
                     <h1>大明军团注册界面</h1>
+                    <p>请注意，全程不要使用中文和小数</p>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="nameField">姓名</label>
                         <input type="text" placeholder="请输入姓名" id="nameField" onChange={(e) => setUserName(e.target.value)} />

@@ -19,17 +19,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState(sessionStorage.getItem('currentUser'));
   const [products, setProducts] = useState([]);
 
-  useEffect(() => {
-    // Fetch products from backend
-    fetch("http://localhost:3000/products")
-      .then((response) => response.json())
-      .then((data) => setProducts(data));
-  }, []);
+  // useEffect(() => {
+  //   // Fetch products from backend
+  //   fetch("http://localhost:3000/products")
+  //     .then((response) => response.json())
+  //     .then((data) => setProducts(data));
+  // }, []);
 
-  // if(!token) {
-  //   return <Login setToken={setToken} setCurrentUser={setCurrentUser}/>
-  // }
-  //console.log(currentUser);
   return (
       <div className="App">
           <div className="wrapper">
