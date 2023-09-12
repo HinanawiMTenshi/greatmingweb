@@ -12,7 +12,7 @@ function Info({ currentUser }) {
     useEffect(() => {
         console.log(currentUser);
         if(currentUser) {
-            axios.get(`http://39.101.76.47:3000/users/${currentUser}`)
+            axios.get(`http://localhost:3000/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                     setTimeout(() => {

@@ -5,7 +5,7 @@ import Helmet from "react-helmet"
 import "./Register.css"
 
 async function registerUser(credentials) {
-    return fetch('http://39.101.76.47:3000/register', {
+    return fetch('http://localhost:3000/register', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
