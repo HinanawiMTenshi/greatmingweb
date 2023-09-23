@@ -22,13 +22,23 @@ app.use((req, res, next) => {
     next();
 });
 
-
+// 原版数据库连接
 const db = mysql.createConnection({
   host: '127.0.0.1',
   user: 'root',
   password: '123456',
   database: 'GreatMingWeb'
 });
+
+// // Docker镜像的数据库链接(使用本地数据库而不是数据库镜像)
+// const dbConfig = {
+//     host: process.env.DB_HOST || '127.0.0.1',
+//     user: process.env.DB_USER || 'root',
+//     password: process.env.DB_PASSWORD || '123456',
+//     database: process.env.DB_NAME || 'GreatMingWeb',
+// };
+//
+// const db = mysql.createConnection(dbConfig)
 
 db.connect();
 

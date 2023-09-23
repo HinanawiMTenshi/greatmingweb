@@ -6,9 +6,8 @@ import "./homepage.css"
 function Homepage({currentUser = ""}) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
     const images = [
-        'https://bbs-static.miyoushe.com/static/2023/08/15/c69737026de88fd63ee17a0c6d9d8192_6738484146570679023.jpg',
-        'https://bbs-static.miyoushe.com/static/2023/08/15/7880d10a17fcc12cc2476a5639a1047d_2485620812433002068.jpg',
-        'https://bbs-static.miyoushe.com/static/2023/08/15/2e7ac0dbb4b64357ba9ddb946d5c0fcd_8229836485492762046.jpg',
+        'https://pic.imgdb.cn/item/64f682e9661c6c8e5488f618.png',
+        'https://pic.imgdb.cn/item/64f682e6661c6c8e5488f5d2.png',
         // Add more image URLs here
     ];
 
@@ -36,11 +35,30 @@ function Homepage({currentUser = ""}) {
             <div className="homeHeader">
                 <h1>大明军团</h1>
                 <div className="homeNav">
-                    <Link to="/Homepage">主页</Link>
-                    <Link to="/Development">日历</Link>
-                    <Link to="/Development">商城</Link>
-                    <Link to="/Development">成员</Link>
-                    <Link to="/Info">个人信息</Link>
+                    <Link to="/">主页</Link>
+                    {/*<Link to="/Development">日历</Link>*/}
+                    {/*<Link to="/Development">商城</Link>*/}
+                    {/*<Link to="/Development">成员</Link>*/}
+                    {currentUser ? (
+                        <Link to="/Development">日历</Link>
+                    ) : (
+                        <Link to="/Login">日历</Link>
+                    )}
+                    {currentUser ? (
+                        <Link to="/Development">商城</Link>
+                    ) : (
+                        <Link to="/Login">商城</Link>
+                    )}
+                    {currentUser ? (
+                        <Link to="/Development">成员</Link>
+                    ) : (
+                        <Link to="/Login">成员</Link>
+                    )}
+                    {currentUser ? (
+                        <Link to="/Info">个人信息</Link>
+                    ) : (
+                        <Link to="/Login">个人信息</Link>
+                    )}
                 </div>
                 <div className="homeLogin">
                     {currentUser ? (

@@ -14,7 +14,7 @@ body {
 }
 
 .homeHeader h1 {
-    margin: 50px;
+    margin: 0;
     font-family: 'JetBrains Mono', sans-serif; /* Replace with your desired font */
     font-size: 50px;
 
@@ -69,7 +69,6 @@ body {
     max-width: 800px; /* Adjust this value as needed */
     margin: 0 auto;
     overflow: hidden;
-    border: 1px solid #ccc;
 }
 
 .carousel-image {

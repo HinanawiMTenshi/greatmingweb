@@ -23,7 +23,8 @@ export default function Login({ setToken  }) {
     const [currentUser, setCurrentUser] = useState(null);
 
     const handleRegisterClick = () => {
-        navigate('/Register');
+        // navigate('/Register');
+        navigate('/RegisterTourists');
     };
     const handleSubmit = async e => {
         e.preventDefault();
@@ -41,9 +42,6 @@ export default function Login({ setToken  }) {
         // 跳转后刷新页面，以重新渲染组件，显示欢迎信息
         window.location.reload();
       }
-
-    
-
 
     return(
         <div>
