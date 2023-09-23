@@ -10,6 +10,7 @@ import Homepage from "./pages/homepage";
 import Development from "./pages/development";
 import Register from "./pages/register";
 import RegisterTourists from "./pages/registerTourists";
+import Admin from "./pages/admin";
 import { CartProvider } from "./contexts/CartContext";
 import Product from "./components/Product";
 import Cart from "./components/Cart";
@@ -33,20 +34,20 @@ function App() {
               {/*<h1>Application</h1>*/}
               <BrowserRouter>
                   <Routes>
-                      {/* 所有用户都可以访问Homepage */}
-                      {/*分为两个Homepage，一个是游客访问的，将部分链接指向Login，另一个是真正的主界面*/}
                       <Route path="/" element={<Homepage currentUser={currentUser} />} />
                       <Route path="/Development" element={<Development />} />
                       <Route path="/Login" element={<Login setToken={setToken} setCurrentUser={setCurrentUser} />} />
-                      <Route path="/Register" element={<Register />} />
+                      {/*<Route path="/Register" element={<Register setToken={setToken}/>} />*/}
                       <Route path="/RegisterTourists" element={<RegisterTourists />} />
+
                       {/* 登录用户的受保护路由 */}
                       {token && (
                           <>
                               <Route path="/Dashboard" element={<Dashboard />} />
                               <Route path="/Preferences" element={<Preferences />} />
                               <Route path="/Info" element={<Info currentUser={currentUser} />} />
-                              <Route path="/Homepage" element={<Homepage currentUser={currentUser} />} />
+                              <Route path="/Admin" element={<Admin currentUser={currentUser}/>} />
+                              <Route path="/Register" element={<Register />} />
                               {/*<Route path="/Register" element={<Register />} />*/}
                           </>
                       )}

@@ -123,6 +123,61 @@ app.put('/users/:id', (req, res) => {
     });
 });
 
+// 定义一个API端点以获取所有用户信息
+app.get('/getAllUsers', (req, res) => {
+    // 查询数据库以检索所有用户信息
+    db.query('SELECT * FROM users', (err, results) => {
+        if (err) {
+            res.status(500).json({ error: '检索用户数据时出错' });
+            return;
+        }
+
+        // 将所有用户信息作为JSON响应发送
+        res.json(results);
+    });
+});
+
+// Update user details for all attributes based on username
+app.put('/updateUser/:username', (req, res) => {
+    const username = req.params.username;
+    const {
+        tag,
+        ranks,
+        company,
+        kills,
+        attendance,
+        balance,
+        enrollmentTime,
+    } = req.body;
+
+    // 构建更新查询语句
+    const updateQuery = `
+    UPDATE users 
+    SET tag = ?,
+        ranks = ?,
+        company = ?,
+        kills = ?,
+        attendance = ?,
+        balance = ?,
+        enrollmentTime = ?
+    WHERE username = ?
+`;
+
+    db.query(
+        updateQuery,
+        [tag, ranks, company, kills, attendance, balance, enrollmentTime, username],
+        (err, result) => {
+            if (err) {
+                console.error(err);
+                res.status(500).json({ error: '更新用户时发生错误' });
+            } else {
+                res.status(200).json({ message: '用户信息已更新' });
+            }
+        }
+    );
+});
+
+
 app.listen(3000, () => {
     console.log('Server started on port 3000');
 });

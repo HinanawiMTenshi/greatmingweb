@@ -32,6 +32,9 @@ export default function Register() {
     const handleLoginClick = () => {
         navigate('/Login');
     };
+    const handleAdminClick = () => {
+        navigate('/Admin');
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         const enrollmentTime = `${year}-${month}-${day}`;
@@ -49,7 +52,7 @@ export default function Register() {
         // setToken(response);
         // Assuming the registration process also logs in the user
         // You can navigate to the homepage or login page as needed.
-        navigate('/Login');
+        navigate('/Admin');
     };
 
     return (
@@ -64,32 +67,33 @@ export default function Register() {
             <div className="register-wrapper">
                 <fieldset>
                     <h1>大明军团注册界面</h1>
+
                     <p>请注意，全程不要使用中文和小数</p>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="nameField">姓名</label>
-                        <input type="text" placeholder="请输入姓名" id="nameField" onChange={(e) => setUserName(e.target.value)} />
+                        <input type="text" placeholder="ZhiZu" id="nameField" onChange={(e) => setUserName(e.target.value)} />
 
                         <label htmlFor="tagField">标签</label>
-                        <input type="text" placeholder="请输入标签" id="tagField" onChange={(e) => setTag(e.target.value)} />
+                        <input type="text" placeholder="管理员设置为Admin,其他随意" id="tagField" onChange={(e) => setTag(e.target.value)} />
 
                         <label htmlFor="ranksField">军衔</label>
-                        <input type="text" placeholder="请输入军衔" id="ranksField" onChange={(e) => setRanks(e.target.value)} />
+                        <input type="text" placeholder="YB(III)" id="ranksField" onChange={(e) => setRanks(e.target.value)} />
 
                         <label htmlFor="companyField">营</label>
-                        <input type="text" placeholder="请输入营" id="companyField" onChange={(e) => setCompany(e.target.value)} />
+                        <input type="text" placeholder="WS" id="companyField" onChange={(e) => setCompany(e.target.value)} />
 
                         <label htmlFor="killsField">击杀</label>
-                        <input type="number" placeholder="请输入击杀数" id="killsField" onChange={(e) => setKills(e.target.value)} />
+                        <input type="number" placeholder="0" id="killsField" onChange={(e) => setKills(e.target.value)} />
 
                         <label htmlFor="attendanceField">出勤</label>
-                        <input type="number" placeholder="请输入出勤数" id="attendanceField" onChange={(e) => setAttendance(e.target.value)} />
+                        <input type="number" placeholder="0" id="attendanceField" onChange={(e) => setAttendance(e.target.value)} />
 
                         <label htmlFor="balanceField">军饷</label>
-                        <input type="number" placeholder="请输入军饷余额" id="balanceField" onChange={(e) => setBalance(e.target.value)} />
+                        <input type="number" placeholder="0" id="balanceField" onChange={(e) => setBalance(e.target.value)} />
 
 
                         <label htmlFor="passwordField">密码</label>
-                        <input type="password" placeholder="请输入密码" id="passwordField" onChange={(e) => setPassword(e.target.value)} />
+                        <input type="password" placeholder="初始密码为123456" id="passwordField" onChange={(e) => setPassword(e.target.value)} />
 
                         <label htmlFor="passwordField">入队时间</label>
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -102,7 +106,8 @@ export default function Register() {
 
                         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <button className="button button-primary" type="submit">注册</button>
-                            <button className="button button-outline" onClick={handleLoginClick}>返回登录</button>
+                            <button className="button button-outline" onClick={handleAdminClick}>返回管理员界面</button>
+                            {/*<button className="button button-outline" onClick={handleLoginClick}>返回登录</button>*/}
                         </div>
                     </form>
                 </fieldset>
@@ -111,6 +116,7 @@ export default function Register() {
     );
 }
 
-Register.propTypes = {
-    setToken: PropTypes.func.isRequired
-}
+// 由于注册接口不再开放，已经不需要在注册之后修改token
+// Register.propTypes = {
+//     setToken: PropTypes.func.isRequired
+// }

@@ -41,10 +41,10 @@ function Info({ currentUser }) {
             <div className="homeHeader">
                 <h1>大明军团</h1>
                 <div className="homeNav">
-                    <Link to="/Homepage">主页</Link>
-                    <Link to="/src/pages/development">日历</Link>
-                    <Link to="/src/pages/development">商城</Link>
-                    <Link to="/src/pages/development">成员</Link>
+                    <Link to="/">主页</Link>
+                    <Link to="/Development">日历</Link>
+                    <Link to="/Development">商城</Link>
+                    <Link to="/Development">成员</Link>
                     <Link to="/Info">个人信息</Link>
                 </div>
                 <div className="homeLogin">
@@ -86,7 +86,7 @@ function Info({ currentUser }) {
                         </tr>
                         <tr>
                             <td>出勤</td>
-                            <td>{user.attandance}</td>
+                            <td>{user.attendance}</td>
                         </tr>
                         <tr>
                             <td>军饷</td>

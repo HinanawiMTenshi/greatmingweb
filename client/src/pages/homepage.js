@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 import Helmet from "react-helmet"
 import "./homepage.css"
+import axios from "axios";
+import Admin from "./admin";
 
 function Homepage({currentUser = ""}) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -10,6 +12,24 @@ function Homepage({currentUser = ""}) {
         'https://pic.imgdb.cn/item/64f682e6661c6c8e5488f5d2.png',
         // Add more image URLs here
     ];
+    const [user, setUser] = useState({});
+    let admin = false;
+
+    useEffect(() => {
+        console.log(currentUser);
+        if (currentUser) {
+            axios.get(`http://localhost:3000/users/${currentUser}`)
+                .then(response => {
+                    setUser(response.data[0]);
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    }, [currentUser]);
+    if (user.tag === "Admin") {
+        admin = true;
+    }
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -58,6 +78,11 @@ function Homepage({currentUser = ""}) {
                         <Link to="/Info">个人信息</Link>
                     ) : (
                         <Link to="/Login">个人信息</Link>
+                    )}
+                    {admin ? (
+                        <Link to="/Admin">管理员界面</Link>
+                    ) : (
+                        <Link to="/Development"></Link>
                     )}
                 </div>
                 <div className="homeLogin">

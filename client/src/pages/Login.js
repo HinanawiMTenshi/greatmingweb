@@ -37,8 +37,8 @@ export default function Login({ setToken  }) {
         sessionStorage.setItem('currentUser', response.user.username);
         //console.log(response.user.username);
         //console.log(currentUser);
-        // 成功登录后导航到 Homepage
-        navigate('/Homepage');
+        // 成功登录后导航到 Home
+        navigate('/');
         // 跳转后刷新页面，以重新渲染组件，显示欢迎信息
         window.location.reload();
       }
