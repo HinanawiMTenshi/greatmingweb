@@ -69,6 +69,7 @@ export default function Register() {
                     <h1>大明军团注册界面</h1>
 
                     <p>请注意，全程不要使用中文和小数</p>
+                    <p>代码尚未完善，每个空都要填上值，尤其是username，否则会导致无法修改，删除等问题</p>
                     <form onSubmit={handleSubmit}>
                         <label htmlFor="nameField">姓名</label>
                         <input type="text" placeholder="ZhiZu" id="nameField" onChange={(e) => setUserName(e.target.value)} />

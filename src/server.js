@@ -84,24 +84,36 @@ app.use('/login', (req, res) => {
     });
 
 app.post('/register', (req, res) => {
-    const { username, tag, ranks, company, kills, attendance, balance, password , enrollmentTime} = req.body;
+    const { username, tag, ranks, company, kills, attendance, balance, password, enrollmentTime } = req.body;
 
     // 在此处添加逻辑来验证用户输入，例如检查用户名是否已存在等。
-
-    // 将用户信息插入数据库或执行其他必要的注册逻辑。
-    const insertQuery = 'INSERT INTO users (username, tag, ranks, company, kills, attendance, balance, password, enrollmentTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    db.query(
-        insertQuery,
-        [username, tag, ranks, company, kills, attendance, balance, password, enrollmentTime],
-        (err, result) => {
-            if (err) {
-                console.error(err);
-                res.status(500).json({ error: '注册时发生错误' });
+    const checkUsernameQuery = 'SELECT * FROM users WHERE username = ?';
+    db.query(checkUsernameQuery, [username], (checkErr, checkResult) => {
+        if (checkErr) {
+            console.error(checkErr);
+            res.status(500).json({ error: '注册时发生错误' });
+        } else {
+            if (checkResult.length > 0) {
+                // 用户名已存在，返回错误响应
+                res.status(400).json({ error: '用户名已被注册' });
             } else {
-                res.status(200).json({ message: '注册成功' });
+                // 用户名不存在，继续执行注册逻辑
+                const insertQuery = 'INSERT INTO users (username, tag, ranks, company, kills, attendance, balance, password, enrollmentTime) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)';
+                db.query(
+                    insertQuery,
+                    [username, tag, ranks, company, kills, attendance, balance, password, enrollmentTime],
+                    (insertErr, result) => {
+                        if (insertErr) {
+                            console.error(insertErr);
+                            res.status(500).json({ error: '注册时发生错误' });
+                        } else {
+                            res.status(200).json({ message: '注册成功' });
+                        }
+                    }
+                );
             }
         }
-    );
+    });
 });
 
 // Fetch all user details
@@ -175,6 +187,25 @@ app.put('/updateUser/:username', (req, res) => {
             }
         }
     );
+});
+
+app.delete('/deleteUser/:username', (req, res) => {
+    const username = req.params.username;
+
+    // 构建删除查询语句
+    const deleteQuery = `
+    DELETE FROM users 
+    WHERE username = ?
+    `;
+
+    db.query(deleteQuery, [username], (err, result) => {
+        if (err) {
+            console.error(err);
+            res.status(500).json({ error: '删除用户时发生错误' });
+        } else {
+            res.status(200).json({ message: '用户已成功删除' });
+        }
+    });
 });
 
 

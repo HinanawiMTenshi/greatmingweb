@@ -85,6 +85,26 @@ export default function Admin({ currentUser }) {
                 console.log(error);
             });
     };
+    // 处理删除用户的函数
+    const handleDelete = (username) => {
+        if (window.confirm(`确定要删除用户 ${username} 吗？`)) {
+            // 调用API来通过用户名删除用户
+            axios.delete(`http://localhost:3000/deleteUser/${username}`)
+                .then(response => {
+                    // 成功删除后更新用户列表
+                    axios.get('http://localhost:3000/getAllUsers')
+                        .then(response => {
+                            setUsers(response.data);
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        });
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    };
 
     // 渲染表格行，根据用户是否正在编辑来显示不同的内容
     const renderTableRow = (user, index) => {
@@ -164,7 +184,10 @@ export default function Admin({ currentUser }) {
                     <td>{user.attendance}</td>
                     <td>{user.balance}</td>
                     <td>{user.enrollmentTime}</td>
-                    <td><button onClick={() => handleEdit(user)}>修改</button></td>
+                    <td>
+                        <button onClick={() => handleEdit(user)}>修改</button>
+                        <button onClick={() => handleDelete(user.username)}>删除</button>
+                    </td>
                 </tr>
             );
         }
