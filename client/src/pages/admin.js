@@ -3,6 +3,7 @@ import axios from "axios";
 import {Link} from "react-router-dom";
 import Helmet from "react-helmet";
 import "./homepage.css"
+import "./new_homepage.css"
 
 export default function Admin({ currentUser }) {
     const [user, setUser] = useState({});
@@ -17,7 +18,7 @@ export default function Admin({ currentUser }) {
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://localhost:3000/users/${currentUser}`)
+            axios.get(`http://68.48.120.202:3000/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })
@@ -30,7 +31,7 @@ export default function Admin({ currentUser }) {
     }, [currentUser]);
 
     useEffect(() => {
-        axios.get('http://localhost:3000/getAllUsers')
+        axios.get('http://68.48.120.202:3000/getAllUsers')
             .then(response => {
                 setUsers(response.data);
             })
@@ -65,12 +66,12 @@ export default function Admin({ currentUser }) {
     // 保存已编辑的用户数据
     const handleSave = () => {
         // 调用API来更新数据库中的数据，使用 editingUser 的数据
-        axios.put(`http://localhost:3000/updateUser/${editingUser.username}`, editingUser)
+        axios.put(`http://68.48.120.202:3000/updateUser/${editingUser.username}`, editingUser)
             .then(response => {
                 // 更新用户列表或执行其他操作
                 // 重新获取用户数据等
                 // 在此示例中，假设更新成功后刷新用户列表
-                axios.get('http://localhost:3000/getAllUsers')
+                axios.get('http://68.48.120.202:3000/getAllUsers')
                     .then(response => {
                         setUsers(response.data);
                     })
@@ -89,10 +90,10 @@ export default function Admin({ currentUser }) {
     const handleDelete = (username) => {
         if (window.confirm(`确定要删除用户 ${username} 吗？`)) {
             // 调用API来通过用户名删除用户
-            axios.delete(`http://localhost:3000/deleteUser/${username}`)
+            axios.delete(`http://68.48.120.202:3000/deleteUser/${username}`)
                 .then(response => {
                     // 成功删除后更新用户列表
-                    axios.get('http://localhost:3000/getAllUsers')
+                    axios.get('http://68.48.120.202:3000/getAllUsers')
                         .then(response => {
                             setUsers(response.data);
                         })

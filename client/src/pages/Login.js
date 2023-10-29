@@ -6,7 +6,7 @@ import Helmet from "react-helmet"
 import "./Login.css"
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:3000/login', {
+    return fetch('http://68.48.120.202:3000/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

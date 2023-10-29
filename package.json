@@ -20,6 +20,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.6.0",
     "next": "^13.4.16",
+    "node-cron": "^3.0.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
@@ -37,7 +38,7 @@
     "eject": "react-scripts eject",
     "server": "node ./src/server.js",
     "client": "node start-client.js",
-    "start2": "concurrently \"npm run server\" \"export PORT=3001 && npm run client\""
+    "start2": "concurrently \"npm run server\" \"set PORT=3001 && npm run client\""
   },
   "eslintConfig": {
     "extends": [
