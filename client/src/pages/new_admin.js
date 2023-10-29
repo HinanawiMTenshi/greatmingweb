@@ -19,7 +19,7 @@ export default function Admin({ currentUser }) {
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://68.48.120.202:3000/users/${currentUser}`)
+            axios.get(`http://localhost:3000/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })
@@ -32,7 +32,7 @@ export default function Admin({ currentUser }) {
     }, [currentUser]);
 
     useEffect(() => {
-        axios.get('http://68.48.120.202:3000/getAllUsers')
+        axios.get('http://localhost:3000/getAllUsers')
             .then(response => {
                 setUsers(response.data);
             })
@@ -83,12 +83,12 @@ export default function Admin({ currentUser }) {
         };
     
         // 调用API来更新数据库中的数据，使用 updatedUser 的数据
-        axios.put(`http://68.48.120.202:3000/updateUser/${editingUser.username}`, updatedUser)
+        axios.put(`http://localhost:3000/updateUser/${editingUser.username}`, updatedUser)
             .then(response => {
                 // 更新用户列表或执行其他操作
                 // 重新获取用户数据等
                 // 在此示例中，假设更新成功后刷新用户列表
-                axios.get('http://68.48.120.202:3000/getAllUsers')
+                axios.get('http://localhost:3000/getAllUsers')
                     .then(response => {
                         setUsers(response.data);
                     })
@@ -107,10 +107,10 @@ export default function Admin({ currentUser }) {
     const handleDelete = (username) => {
         if (window.confirm(`确定要删除用户 ${username} 吗？`)) {
             // 调用API来通过用户名删除用户
-            axios.delete(`http://68.48.120.202:3000/deleteUser/${username}`)
+            axios.delete(`http://localhost:3000/deleteUser/${username}`)
                 .then(response => {
                     // 成功删除后更新用户列表
-                    axios.get('http://68.48.120.202:3000/getAllUsers')
+                    axios.get('http://localhost:3000/getAllUsers')
                         .then(response => {
                             setUsers(response.data);
                         })
@@ -128,7 +128,7 @@ export default function Admin({ currentUser }) {
       
         // 发送API请求
         // 发送API请求
-        const url = `http://68.48.120.202:3000/updatePassword`;
+        const url = `http://localhost:3000/updatePassword`;
         fetch(url, { // 不再需要在URL中包含用户名
             method: 'PUT',
             headers: {

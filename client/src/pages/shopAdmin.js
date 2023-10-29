@@ -8,7 +8,7 @@ function ShopAdmin({ currentUser }) {
     const [editProduct, setEditProduct] = useState({ id: '', name: '', price: '', quantity: '', description: '', image_url: '' });
     useEffect(() => {
         // 发送 GET 请求获取商品列表
-        axios.get('http://68.48.120.202:3000/products')
+        axios.get('http://localhost:3000/products')
             .then(response => {
                 setProducts(response.data);
             })
@@ -19,7 +19,7 @@ function ShopAdmin({ currentUser }) {
 
     const handleAddProduct = () => {
         // 发送 POST 请求以添加新商品
-        axios.post('http://68.48.120.202:3000/products', newProduct)
+        axios.post('http://localhost:3000/products', newProduct)
             .then(response => {
                 // 刷新商品列表
                 setProducts([...products, response.data]);
@@ -33,7 +33,7 @@ function ShopAdmin({ currentUser }) {
 
     const handleDeleteProduct = (productId) => {
         // 发送 DELETE 请求以删除商品
-        axios.delete(`http://68.48.120.202:3000/products/${productId}`)
+        axios.delete(`http://localhost:3000/products/${productId}`)
             .then(() => {
                 // 刷新商品列表
                 setProducts(products.filter(product => product.id !== productId));
@@ -45,7 +45,7 @@ function ShopAdmin({ currentUser }) {
 
     const handleEditProduct = () => {
         // 发送 PUT 请求以编辑商品
-        axios.put(`http://68.48.120.202:3000/products/${editProduct.id}`, editProduct)
+        axios.put(`http://localhost:3000/products/${editProduct.id}`, editProduct)
             .then(response => {
                 // 刷新商品列表
                 setProducts(products.map(product => (product.id === editProduct.id ? response.data : product)));

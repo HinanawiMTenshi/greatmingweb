@@ -32,7 +32,7 @@ function App() {
 
   // useEffect(() => {
   //   // Fetch products from backend
-  //   fetch("http://68.48.120.202:3000/products")
+  //   fetch("http://localhost:3000/products")
   //     .then((response) => response.json())
   //     .then((data) => setProducts(data));
   // }, []);

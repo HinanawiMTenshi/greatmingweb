@@ -31,7 +31,7 @@ for line in lines:
 # print(len(result.keys()))
 
 # 定义API的URL
-url = 'http://68.48.120.202:3000/register'  # 请替换为实际的API URL
+url = 'http://localhost:3000/register'  # 请替换为实际的API URL
 
 for namek,datav in result.items():
     # 定义请求参数

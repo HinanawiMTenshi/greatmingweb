@@ -9,14 +9,14 @@ function ReaddateAdmin({ currentUser }) {
     const [txtFiles, setTxtFiles] = useState([]);
     useEffect(() => {
         // 发送 GET 请求获取目录结构
-        axios.get('http://68.48.120.202:3000/subdirectoriesWithFiles')
+        axios.get('http://localhost:3000/subdirectoriesWithFiles')
             .then(response => {
                 setDirectoryStructure(response.data);
             })
             .catch(error => {
                 console.error('获取目录结构出错:', error);
             });
-        axios.get('http://68.48.120.202:3000/txtFilesInDirectory')
+        axios.get('http://localhost:3000/txtFilesInDirectory')
         .then(response => {
             setTxtFiles(response.data);
         })
@@ -25,7 +25,7 @@ function ReaddateAdmin({ currentUser }) {
         });
     }, []);
     const fetchLogFiles = () => {
-        axios.post('http://68.48.120.202:3000/getLogFiles')
+        axios.post('http://localhost:3000/getLogFiles')
             .then(response => {
                 setLogFiles(response.data.logFiles);
             })
@@ -48,7 +48,7 @@ function ReaddateAdmin({ currentUser }) {
             const formData = new FormData();
             formData.append('logfile', selectedFile);
 
-            axios.post('http://68.48.120.202:3000/uploadLogFile', formData, {
+            axios.post('http://localhost:3000/uploadLogFile', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -73,7 +73,7 @@ function ReaddateAdmin({ currentUser }) {
     const handleDownloadFile = (filename, type) => {
         // 创建一个下载链接并触发点击事件以下载文件
         const downloadLink = document.createElement('a');
-        const downloadUrl = `http://68.48.120.202:3000/downloadLogFile/${type}/${filename}`;
+        const downloadUrl = `http://localhost:3000/downloadLogFile/${type}/${filename}`;
     
         downloadLink.href = downloadUrl;
         downloadLink.download = filename;
@@ -83,27 +83,27 @@ function ReaddateAdmin({ currentUser }) {
     // const handleDownloadFile = (filename) => {
     //     // 创建一个下载链接并触发点击事件以下载文件
     //     const downloadLink = document.createElement('a');
-    //     downloadLink.href = `http://68.48.120.202:3000/downloadLogFile/${filename}`; // 设置下载文件的API端点
+    //     downloadLink.href = `http://localhost:3000/downloadLogFile/${filename}`; // 设置下载文件的API端点
     //     downloadLink.download = filename; // 设置下载的文件名
     //     downloadLink.click();
     // };
     // const handleDownloadFileed = (filename) => {
     //     // 创建一个下载链接并触发点击事件以下载文件
     //     const downloadLink = document.createElement('a');
-    //     downloadLink.href = `http://68.48.120.202:3000/downloadLogFileed/${filename}`; // 设置下载文件的API端点
+    //     downloadLink.href = `http://localhost:3000/downloadLogFileed/${filename}`; // 设置下载文件的API端点
     //     downloadLink.download = filename; // 设置下载的文件名
     //     downloadLink.click();
     // };
     // const handleDownloadFilecount = (filename) => {
     //     // 创建一个下载链接并触发点击事件以下载文件
     //     const downloadLink = document.createElement('a');
-    //     downloadLink.href = `http://68.48.120.202:3000/downloadLogFilecount/${filename}`; // 设置下载文件的API端点
+    //     downloadLink.href = `http://localhost:3000/downloadLogFilecount/${filename}`; // 设置下载文件的API端点
     //     downloadLink.download = filename; // 设置下载的文件名
     //     downloadLink.click();
     // };
 
     const handleDeleteFile = (filename, type) => {
-        axios.delete(`http://68.48.120.202:3000/deleteLogFile/${type}/${filename}`)
+        axios.delete(`http://localhost:3000/deleteLogFile/${type}/${filename}`)
           .then(response => {
             console.log(`文件 "${filename}" 已成功删除`);
             fetchLogFiles(); // 删除文件后刷新文件列表
@@ -114,7 +114,7 @@ function ReaddateAdmin({ currentUser }) {
       };
 
     // const handleDeleteFile = (filename) => {
-    // axios.delete(`http://68.48.120.202:3000/deleteLogFile/${filename}`)
+    // axios.delete(`http://localhost:3000/deleteLogFile/${filename}`)
     //     .then(response => {
     //         console.log(`文件 "${filename}" 已成功删除`);
     //         fetchLogFiles(); // 删除文件后刷新文件列表
@@ -124,7 +124,7 @@ function ReaddateAdmin({ currentUser }) {
     //     });
     // };
     // const handleDeleteFileed = (filename) => {
-    //     axios.delete(`http://68.48.120.202:3000/deleteLogFileed/${filename}`)
+    //     axios.delete(`http://localhost:3000/deleteLogFileed/${filename}`)
     //         .then(response => {
     //             console.log(`文件 "${filename}" 已成功删除`);
     //             fetchLogFiles(); // 删除文件后刷新文件列表
@@ -135,7 +135,7 @@ function ReaddateAdmin({ currentUser }) {
     //     };
 
     // const handleDeleteFileedcount = (filename) => {
-    //     axios.delete(`http://68.48.120.202:3000/deleteLogFilecount/${filename}`)
+    //     axios.delete(`http://localhost:3000/deleteLogFilecount/${filename}`)
     //         .then(response => {
     //             console.log(`文件 "${filename}" 已成功删除`);
     //             fetchLogFiles(); // 删除文件后刷新文件列表
@@ -176,7 +176,7 @@ function ReaddateAdmin({ currentUser }) {
 
     const runPythonScript = (scriptPathAndName) => {
 
-        axios.post('http://68.48.120.202:3000/runPythonScript', { scriptPathAndName })
+        axios.post('http://localhost:3000/runPythonScript', { scriptPathAndName })
             .then(response => {
                 console.log('Python脚本执行成功');
                 // 在这里添加处理成功执行Python脚本的逻辑

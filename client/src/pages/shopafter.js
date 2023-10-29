@@ -7,7 +7,7 @@ export default function ShopAfter({ currentUser }) {
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://68.48.120.202:3000/users/${currentUser}`)
+            axios.get(`http://localhost:3000/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })

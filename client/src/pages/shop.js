@@ -15,7 +15,7 @@ export default function Shop({ currentUser }) {
     
     useEffect(() => {
         // 获取商品数据并更新状态变量
-        axios.get('http://68.48.120.202:3000/products')
+        axios.get('http://localhost:3000/products')
             .then(response => {
                 setProducts(response.data);
             })
@@ -30,7 +30,7 @@ export default function Shop({ currentUser }) {
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://68.48.120.202:3000/users/${currentUser}`)
+            axios.get(`http://localhost:3000/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })
@@ -55,7 +55,7 @@ export default function Shop({ currentUser }) {
             
         };
     
-        axios.post('http://68.48.120.202:3000/orders', newOrder)
+        axios.post('http://localhost:3000/orders', newOrder)
             .then(response => {
                 // 更新用户余额
                 const updatedBalance = user.balance - parseInt(product.price); // 价格抹去小数部分
@@ -82,10 +82,10 @@ export default function Shop({ currentUser }) {
                 image_url: product.image_url,
                 };
                 
-                axios.put(`http://68.48.120.202:3000/products/${product.id}`, updatedProductInfo)
+                axios.put(`http://localhost:3000/products/${product.id}`, updatedProductInfo)
                 .then(() => {
                     // 发送更新用户信息的请求
-                    axios.put(`http://68.48.120.202:3000/updateUser/${currentUser}`, updatedUserInfo)
+                    axios.put(`http://localhost:3000/updateUser/${currentUser}`, updatedUserInfo)
                         .then(() => {
                             setOrderCreated(true);
                             alert('你订单已成功创建！请联系管理员(大古)进行商品的发放')
