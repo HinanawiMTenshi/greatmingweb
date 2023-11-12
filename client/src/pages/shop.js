@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import "./shop.css"
 import "./new_homepage.css"
 
@@ -46,63 +46,68 @@ export default function Shop({ currentUser }) {
 
     // 处理购买按钮点击事件
     const handleBuyProduct = (product) => {
-        setSelectedProduct(product);
-        // 在此处可以创建订单并将其保存到数据库
-        const newOrder = {
-            user_name: currentUser,
-            product_name: product.name,
-            product_price: product.price,
-            
-        };
-    
-        axios.post('http://localhost:3000/orders', newOrder)
-            .then(response => {
-                // 更新用户余额
-                const updatedBalance = user.balance - parseInt(product.price); // 价格抹去小数部分
-                // 构建包含所有字段的用户信息对象
-                const updatedUserInfo = {
-                    tag: user.tag,
-                    ranks: user.ranks,
-                    company: user.company,
-                    kills: user.kills,
-                    attendance: user.attendance,
-                    balance: updatedBalance,
-                    enrollmentTime: new Date(user.enrollmentTime).toISOString().slice(0, 19).replace('T', ' '), // 转换日期时间格式                    balance: updatedBalance,
-                    name: user.name, // 保留 name 字段
-                };
+        if (user.balance < product.price) {
+            alert('余额不足，无法购买该商品！');
+        } else {
+            setSelectedProduct(product);
+            // 在此处可以创建订单并将其保存到数据库
+            const newOrder = {
+                user_name: currentUser,
+                product_name: product.name,
+                product_price: product.price,
                 
-                // 更新商品数量
-                const updatedQuantity = product.quantity - 1
-                 // 构建包含所有字段的商品信息对象
-                const updatedProductInfo = {
-                name: product.name,
-                price: product.price,
-                quantity: updatedQuantity, // 更新商品数量
-                description: product.description,
-                image_url: product.image_url,
-                };
-                
-                axios.put(`http://localhost:3000/products/${product.id}`, updatedProductInfo)
-                .then(() => {
-                    // 发送更新用户信息的请求
-                    axios.put(`http://localhost:3000/updateUser/${currentUser}`, updatedUserInfo)
-                        .then(() => {
-                            setOrderCreated(true);
-                            alert('你订单已成功创建！请联系管理员(大古)进行商品的发放')
-                            // 跳转到 /ShopAfter 界面
-                            // navigate('/ShopAfter');
-                        })
-                        .catch(error => {
-                            console.error(error);
-                        });
-                })
-                .catch(error => {
-                    console.error(error);
-                });
-        })
-        .catch(error => {
-            console.error(error);
-        });
+            };
+        
+            axios.post('http://localhost:3000/orders', newOrder)
+                .then(response => {
+                    // 更新用户余额
+                    const updatedBalance = user.balance - parseInt(product.price); // 价格抹去小数部分
+                    // 构建包含所有字段的用户信息对象
+                    const updatedUserInfo = {
+                        tag: user.tag,
+                        ranks: user.ranks,
+                        company: user.company,
+                        kills: user.kills,
+                        attendance: user.attendance,
+                        balance: updatedBalance,
+                        enrollmentTime: new Date(user.enrollmentTime).toISOString().slice(0, 19).replace('T', ' '), // 转换日期时间格式                    balance: updatedBalance,
+                        name: user.name, // 保留 name 字段
+                    };
+                    
+                    // 更新商品数量
+                    const updatedQuantity = product.quantity - 1
+                    // 构建包含所有字段的商品信息对象
+                    const updatedProductInfo = {
+                    name: product.name,
+                    price: product.price,
+                    quantity: updatedQuantity, // 更新商品数量
+                    description: product.description,
+                    image_url: product.image_url,
+                    };
+                    
+                    axios.put(`http://localhost:3000/products/${product.id}`, updatedProductInfo)
+                    .then(() => {
+                        // 发送更新用户信息的请求
+                        axios.put(`http://localhost:3000/updateUser/${currentUser}`, updatedUserInfo)
+                            .then(() => {
+                                setOrderCreated(true);
+                                alert('你订单已成功创建！请联系管理员(大古)进行商品的发放')
+                                // 跳转到 /ShopAfter 界面
+                                // navigate('/ShopAfter');
+                                alert('请手动刷新页面，以购买其他商品')
+                            })
+                            .catch(error => {
+                                console.error(error);
+                            });
+                    })
+                    .catch(error => {
+                        console.error(error);
+                    });
+            })
+            .catch(error => {
+                console.error(error);
+            });
+        }
 };
 const LoginProduct = () => {
     alert('请先登录')
@@ -150,7 +155,7 @@ const LoginProduct = () => {
                     )}
                     {currentUser ? (
                         <li class="LoginInfo">
-                        <div class="dropdown"> <a href="#" class="dropbtn">{currentUser}</a>
+                        <div class="dropdown"> <a href="#" class="dropbtn">{currentUser},余额：{user.balance}</a>
                             <div class="dropdown-content"> <a href="Development">修改信息</a> <a href="ChangePassword">修改密码</a> <a href="Development">退出登录</a> </div>
                         </div>
                         </li>
@@ -190,7 +195,7 @@ const LoginProduct = () => {
     </ul>
 
     {orderCreated && (
-        <p>订单已成功创建！</p>
+        <p>订单已成功创建！请手动刷新页面！</p>
         )}
         </div>
     </div>
