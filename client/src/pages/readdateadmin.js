@@ -46,27 +46,23 @@ function ReaddateAdmin({ currentUser }) {
     const handleFileUpload = () => {
         if (selectedFile) {
             const formData = new FormData();
-            formData.append('logfile', selectedFile);
+            formData.append('file', selectedFile);
 
-            axios.post('http://localhost:3000/uploadLogFile', formData, {
+            const uploadPath = './client/src/python/log'; // 设置写死的文件路径
+
+            axios.post(`http://localhost:3000/uploadFile?path=${encodeURIComponent(uploadPath)}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             })
-            .then(response => {
-                console.log('文件上传成功');
-                // 你可以在这里显示一个成功消息
-                fetchLogFiles();
-                alert('文件上传成功');
-                // 或者将消息存储到状态以在页面上显示
-                // updateMessage('文件上传成功');
-            })
-            .catch(error => {
-                console.error('文件上传出错：', error);
-                fetchLogFiles();
-                // 你可以在这里显示一个错误消息
-                alert('文件上传出错：' + error.message);
-            });
+                .then(response => {
+                    console.log('文件上传成功');
+                    alert('文件上传成功');
+                })
+                .catch(error => {
+                    console.error('文件上传出错：', error);
+                    alert('文件上传出错：' + error.message);
+                });
         }
     };
 
@@ -202,10 +198,11 @@ function ReaddateAdmin({ currentUser }) {
                     <img src="https://pic.imgdb.cn/item/651b3268c458853aef2b3f8f.jpg" alt="Paris"/>
                 </li>
                 {/* <li><a href="#home" class="active">大明军团</a></li> */}
-                <li class='li'><a href="/">主页</a></li>
-                <li class='li'><a href="/Register">队员注册</a></li>
-                <li class='li'><a href="/ReaddateAdmin">数据读取</a></li>
-                <li class='li'><a href="/Development">数据备份</a></li>
+                <li className='li'><a href="/Admin">管理员主页</a></li>
+                <li className='li'><a href="/Register">队员注册</a></li>
+                <li className='li'><a href="/ReaddateAdmin">数据读取</a></li>
+                <li className='li'><a href="/BalanceCount">军饷统计</a></li>
+                <li className='li'><a href="/Backup">数据备份</a></li>
                 <li class='li'>
                         <div class="dropdown"> <a href="#" class="dropbtn">网站操作</a>
                             <div class="dropdown-content"> <a href="Development">主页操作</a> <a href="ShopAdmin">商店操作</a> <a href="OrderAdmin">订单操作</a> </div>

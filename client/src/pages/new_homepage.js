@@ -79,6 +79,11 @@ function Homepage({currentUser = ""}) {
                     ) : (
                         <li class='li'><a href="Login">个人信息</a></li>
                     )}
+                    {currentUser ? (
+                        <li class='li'><a href="http://47.236.16.156:4000/zh">ChatGPT</a></li>
+                        ) : (
+                        <li class='li'><a href="http://47.236.16.156:4000/zh">ChatGPT</a></li>
+                    )}
                     {admin ? (
                         <li class='li'><a href="Admin">管理员界面</a></li>
                     ) : (
@@ -117,10 +122,9 @@ function Homepage({currentUser = ""}) {
                 </div>
                 </div>
                 <div class="right">
-                    <h1>公告</h1>
+                    <h1>更新公告</h1>
                     <p>
-                    最新军衔制度正式出台，该文件已放入群文件中入队必读文件夹。请将群内及游戏内昵称换为新军衔格式：
-                    GreatMing_所属营_ID_军衔新军衔详情请咨询你所属营的管理
+                    修复了贷款问题，新增数据库备份与还原功能，新增ChatGPT3.5的使用，稍后会发布4.0版本
                     </p>
                 </div>
             </div>
@@ -159,7 +163,7 @@ function Homepage({currentUser = ""}) {
 
             <div class="footer">
                     <p>日月昭昭，惟我大明</p>
-                    <p>如果在网站中发现bug，请私聊管理或给江湖刀发送邮件:w2027075535@outlook.com</p>
+                    <p>如果在网站中发现bug，请私聊管理或给江湖刀发送邮件:w2027075535@outlook.com(强烈建立给江湖刀发邮件)</p>
             </div>
         </div>
     );

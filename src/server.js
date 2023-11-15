@@ -15,6 +15,8 @@ const { exec } = require('child_process');
 const pythonPath = 'C:\\Users\\JiangHuDao\\AppData\\Local\\Programs\\Python\\Python311\\python.exe'
 
 
+// 使用 body-parser 只解析 application/x-www-form-urlencoded 类型的数据
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 //Cors setting for local test. 
@@ -397,30 +399,66 @@ app.post('/getLogFiles', (req, res) => {
     });
 });
 
-// 上传logfile文件：
-// 配置multer来处理文件上传
+// // 上传logfile文件：
+// // 配置multer来处理文件上传
+// const storage = multer.diskStorage({
+//     destination: (req, file, cb) => {
+//         const uploadDir = './client/src/python/log'; // 上传文件的目录
+//         cb(null, uploadDir);
+//     },
+//     filename: (req, file, cb) => {
+//         const originalFileName = file.originalname; //使用原始文件名
+//         cb(null, originalFileName);
+//     },
+// });
+//
+// const upload = multer({ storage });
+//
+// // 创建文件上传的API端点
+// app.post('/uploadLogFile', upload.single('logfile'), (req, res) => {
+//     if (req.file) {
+//         res.status(200).json({ message: '文件上传成功' });
+//     } else {
+//         res.status(400).json({ error: '文件上传失败' });
+//     }
+// });
+
+
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        const uploadDir = './client/src/python/log'; // 上传文件的目录
-        cb(null, uploadDir);
+        const uploadPath = req.query.path; // 从查询参数中获取路径
+
+        // 检查是否提供了路径字符串
+        if (!uploadPath) {
+            return cb(new Error('未提供文件夹路径'), null);
+        }
+
+        // 确保上传目录存在
+        if (!fs.existsSync(uploadPath)) {
+            fs.mkdirSync(uploadPath, { recursive: true });
+        }
+        cb(null, uploadPath);
     },
     filename: (req, file, cb) => {
-        const originalFileName = file.originalname; //使用原始文件名
+        const originalFileName = file.originalname;
         cb(null, originalFileName);
     },
 });
 
 const upload = multer({ storage });
 
-// 创建文件上传的API端点
-app.post('/uploadLogFile', upload.single('logfile'), (req, res) => {
-    if (req.file) {
-        res.status(200).json({ message: '文件上传成功' });
-    } else {
-        res.status(400).json({ error: '文件上传失败' });
+app.post('/uploadFile', upload.single('file'), (req, res) => {
+    try {
+        if (req.file) {
+            res.status(200).json({ message: '文件上传成功', path: req.query.path });
+        } else {
+            res.status(400).json({ error: '文件上传失败' });
+        }
+    } catch (error) {
+        console.error('上传文件时发生错误：', error);
+        res.status(500).json({ error: '服务器内部错误' });
     }
 });
-
 
 //尝试给每个月份目录后面添加上传文件按钮，失败
 // const storageed = multer.diskStorage({
@@ -492,11 +530,13 @@ app.delete('/deleteLogFile/:item/:filename', (req, res) => {
     if (item === 'count') {
         filePath = path.join('./client/src/python/logreaded', filename);
     } else if (item === 'ed') {
-        fileitem = filename.split(' ')[0]
+        fileitem = filename.split(' ')[0]   // 不知道为啥这两个会报error，实际不影响功能的使用
         filenameed = filename.split(' ')[1]
         filePath = path.join('./client/src/python/logreaded', fileitem, filenameed);
     } else if (item === 'balance') {
         filePath = path.join('./client/src/python/balancefiles', filename);
+    } else if (item === 'backup') {  // 备份文件删除
+        filePath = path.join('./client/src/backups', filename);
     } else {
         filePath = path.join('./client/src/python/log', filename);
     }
@@ -769,9 +809,6 @@ cron.schedule('0 0 1 * *', () => {
     }
 });
 
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-});
 
 // 根据队友的 ranks 计算增加的 balance 的逻辑
 function calculateBalanceBasedOnRanks(ranks) {
@@ -791,3 +828,79 @@ function calculateBalanceBasedOnRanks(ranks) {
     return balanceToAdd;
 }
 
+// 备份数据库
+app.get('/backup/make', (req, res) => {    // 生成唯一的文件名，使用当前时间戳
+    const timestamp = new Date().getTime();
+    const backupFileName = `backup_${timestamp}.sql`;
+    const backupFilePath = path.join('./client/src/backups', backupFileName);
+
+    // 使用 mysqldump 备份 MariaDB 数据库
+    const command = `mysqldump --host=${db.config.host} --user=${db.config.user} --password=${db.config.password} ${db.config.database} > ${backupFilePath}`;
+
+    exec(command, (error, stdout, stderr) => {
+        if (error) {
+            console.error('数据库备份失败: ' + error);
+            res.status(500).json({ error: '数据库备份失败' });
+        } else {
+            console.log('数据库备份成功');
+            res.json({ message: '数据库备份成功', fileName: backupFileName });
+        }
+    });
+});
+// 列出备份文件的 API 端点
+app.get('/backup/list', (req, res) => {
+    // const backupFolder = path.join(__dirname, 'backups');
+    const backupFolder = './client/src/backups'
+    // 读取备份文件夹中的备份文件列表
+    fs.readdir(backupFolder, (err, files) => {
+        if (err) {
+            console.error(`Error reading backup files：${err}`);
+            res.status(500).json({ error: 'Error listing backup files' });
+        } else {
+            res.json({ files });
+        }
+    });
+});
+
+// 下载特定备份文件的 API 端点
+app.get('/backup/download/:fileName', (req, res) => {
+    const fileName = req.params.fileName;
+    const filePath = path.join('./client/src/backups', fileName);
+
+    // 检查文件是否存在
+    if (fs.existsSync(filePath)) {
+        res.download(filePath);
+    } else {
+        res.status(404).json({ error: 'File not found' });
+    }
+});
+
+// 从备份文件中还原数据库的 API 端点
+app.post('/backup/restore/:fileName', (req, res) => {
+    const fileName = req.params.fileName;
+    const filePath = path.join('./client/src/backups', fileName);
+
+    // 检查文件是否存在
+    if (fs.existsSync(filePath)) {
+        const command = `mysql -u ${db.config.user} -p${db.config.password} -h ${db.config.host} ${db.config.database} < ${filePath}`;
+
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                console.error(`Restore failed:${stderr}`);
+                res.status(500).json({ error: 'Restore failed' });
+            } else {
+                console.log(`Restore successful from file:${filePath}`);
+                res.json({ success: true });
+            }
+        });
+    } else {
+        res.status(404).json({ error: 'File not found' });
+    }
+});
+
+
+
+
+app.listen(3000, () => {
+    console.log('Server started on port 3000');
+});

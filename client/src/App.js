@@ -19,6 +19,7 @@ import OrderAdmin from './pages/orderAdmin';
 import ChangePassword from './pages/changePasswd';
 import ReaddateAdmin from './pages/readdateadmin';
 import BalanceCount from './pages/balancecount';
+import Backup from "./pages/backup";
 // import Admin from "./pages/admin";
 import { CartProvider } from "./contexts/CartContext";
 import Product from "./components/Product";
@@ -64,7 +65,7 @@ function App() {
                               <Route path="/ChangePassword" element={<ChangePassword currentUser={currentUser} />} />
                               <Route path="/ReaddateAdmin" element={<ReaddateAdmin currentUser={currentUser}/>} />
                               <Route path="/BalanceCount" element={<BalanceCount currentUser={currentUser}/>} />
-
+                              <Route path="/Backup" element={<Backup currentUser={currentUser}/>} />
                               {/*<Route path="/Register" element={<Register />} />*/}
                           </>
                       )}

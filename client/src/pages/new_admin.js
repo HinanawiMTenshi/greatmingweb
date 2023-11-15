@@ -260,11 +260,11 @@ export default function Admin({ currentUser }) {
                     <img src="https://pic.imgdb.cn/item/651b3268c458853aef2b3f8f.jpg" alt="Paris"/>
                 </li>
                 {/* <li><a href="#home" class="active">大明军团</a></li> */}
-                <li class='li'><a href="/">主页</a></li>
+                <li className='li'><a href="/">主页</a></li>
                 <li class='li'><a href="/Register">队员注册</a></li>
                 <li class='li'><a href="/ReaddateAdmin">数据读取</a></li>
                 <li class='li'><a href="/BalanceCount">军饷统计</a></li>
-                <li class='li'><a href="/Development">数据备份</a></li>
+                <li class='li'><a href="/Backup">数据备份</a></li>
                 <li class='li'>
                         <div class="dropdown"> <a href="#" class="dropbtn">网站操作</a>
                             <div class="dropdown-content"> <a href="Development">主页操作</a> <a href="ShopAdmin">商店操作</a> <a href="OrderAdmin">订单操作</a> </div>
