@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
-import Helmet from "react-helmet"
-// import "./homepage.css"
 import "./new_homepage.css"
 import axios from "axios";
-import Admin from "./admin";
+import {ApiUrl} from "./config";
 
 function Homepage({currentUser = ""}) {
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -19,7 +16,7 @@ function Homepage({currentUser = ""}) {
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://localhost:3000/users/${currentUser}`)
+            axios.get(`${ApiUrl}/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })
@@ -123,9 +120,9 @@ function Homepage({currentUser = ""}) {
                 </div>
                 <div class="right">
                     <h1>更新公告</h1>
-                    <p>
-                    修复了贷款问题，新增数据库备份与还原功能，新增ChatGPT3.5的使用，稍后会发布4.0版本
-                    </p>
+                    <p>修复了贷款问题，新增数据库备份与还原功能，新增ChatGPT3.5的使用，以后会发布4.0版本</p>
+                    <p>修复了因为服务器在正德那边导致的经常连不上的问题，目前服务器部署在新加坡，建议关闭梯子使用，进不去服务器请联系管理重启服务器</p>
+                    <p>如果遇到Bug或有什么好的建议请给江湖刀发邮件(见本页面最下方小字)，方便集中统计和军饷发放，感谢！</p>
                 </div>
             </div>
 
@@ -163,7 +160,7 @@ function Homepage({currentUser = ""}) {
 
             <div class="footer">
                     <p>日月昭昭，惟我大明</p>
-                    <p>如果在网站中发现bug，请私聊管理或给江湖刀发送邮件:w2027075535@outlook.com(强烈建立给江湖刀发邮件)</p>
+                    <p>如果在网站中发现bug，请私聊管理或给江湖刀发送邮件:w2027075535@outlook.com(强烈建议给江湖刀发邮件)</p>
             </div>
         </div>
     );

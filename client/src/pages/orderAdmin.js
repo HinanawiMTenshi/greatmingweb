@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./orderAdmin.css"
+import {ApiUrl} from "./config";
 
 function OrderAdmin({ currentUser }) {
     const [orders, setOrders] = useState([]);
@@ -8,7 +9,7 @@ function OrderAdmin({ currentUser }) {
 
     useEffect(() => {
         // 发送 GET 请求获取订单列表
-        axios.get('http://localhost:3000/orders')
+        axios.get(`${ApiUrl}/orders`)
             .then(response => {
                 setOrders(response.data);
             })
@@ -19,7 +20,7 @@ function OrderAdmin({ currentUser }) {
 
     const handleAddOrder = () => {
         // 发送 POST 请求以创建新订单
-        axios.post('http://localhost:3000/orders', newOrder)
+        axios.post(`${ApiUrl}/orders`, newOrder)
             .then(response => {
                 // 刷新订单列表
                 setOrders([...orders, response.data]);
@@ -33,7 +34,7 @@ function OrderAdmin({ currentUser }) {
 
     const handleDeleteOrder = (orderId) => {
         // 发送 DELETE 请求以删除订单
-        axios.delete(`http://localhost:3000/orders/${orderId}`)
+        axios.delete(`${ApiUrl}/orders/${orderId}`)
             .then(() => {
                 // 刷新订单列表
                 setOrders(orders.filter(order => order.id !== orderId));

@@ -4,9 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Helmet from "react-helmet"
 import "./Login.css"
+import {ApiUrl} from "./config";
 
 async function loginUser(credentials) {
-    return fetch('http://localhost:3000/login', {
+    return fetch(`${ApiUrl}/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

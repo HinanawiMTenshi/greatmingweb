@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import Helmet from "react-helmet"
 import "./Register.css"
+import {ApiUrl} from "./config";
 
 async function registerUser(credentials) {
-    return fetch('http://localhost:3000/register', {
+    return fetch(`${ApiUrl}/register`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

@@ -4,7 +4,7 @@ import "./homepage.css"
 import "./new_homepage.css"
 import "./info.css"
 import "./loading.css"
-import {Link} from "react-router-dom";
+import {ApiUrl} from "./config";
 
 function Info({ currentUser }) {
     const [user, setUser] = useState({});
@@ -13,7 +13,7 @@ function Info({ currentUser }) {
     useEffect(() => {
         console.log(currentUser);
         if(currentUser) {
-            axios.get(`http://localhost:3000/users/${currentUser}`)
+            axios.get(`${ApiUrl}/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                     setTimeout(() => {

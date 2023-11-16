@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './shopAdmin.css'; // Import the CSS file
 import axios from "axios";
-
+import {ApiUrl} from "./config";
 
 function ChangePassword({ currentUser }) {
     const [user, setUser] = useState({});
@@ -17,7 +17,7 @@ function ChangePassword({ currentUser }) {
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://localhost:3000/users/${currentUser}`)
+            axios.get(`${ApiUrl}/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })
@@ -38,7 +38,7 @@ function ChangePassword({ currentUser }) {
         }
 
         // 发送API请求
-        const url = `http://localhost:3000/updatePassword`;
+        const url = `${ApiUrl}/updatePassword`;
         fetch(url, { // 不再需要在URL中包含用户名
             method: 'PUT',
             headers: {

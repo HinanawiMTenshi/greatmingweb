@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import "./shop.css"
 import "./new_homepage.css"
+import {ApiUrl} from "./config";
 
 export default function Shop({ currentUser }) {
     const [user, setUser] = useState({});
@@ -15,7 +16,7 @@ export default function Shop({ currentUser }) {
     
     useEffect(() => {
         // 获取商品数据并更新状态变量
-        axios.get('http://localhost:3000/products')
+        axios.get(`${ApiUrl}/products`)
             .then(response => {
                 setProducts(response.data);
             })
@@ -30,7 +31,7 @@ export default function Shop({ currentUser }) {
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://localhost:3000/users/${currentUser}`)
+            axios.get(`${ApiUrl}/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })
@@ -58,7 +59,7 @@ export default function Shop({ currentUser }) {
                 
             };
         
-            axios.post('http://localhost:3000/orders', newOrder)
+            axios.post(`${ApiUrl}/orders`, newOrder)
                 .then(response => {
                     // 更新用户余额
                     const updatedBalance = user.balance - parseInt(product.price); // 价格抹去小数部分
@@ -85,10 +86,10 @@ export default function Shop({ currentUser }) {
                     image_url: product.image_url,
                     };
                     
-                    axios.put(`http://localhost:3000/products/${product.id}`, updatedProductInfo)
+                    axios.put(`${ApiUrl}/products/${product.id}`, updatedProductInfo)
                     .then(() => {
                         // 发送更新用户信息的请求
-                        axios.put(`http://localhost:3000/updateUser/${currentUser}`, updatedUserInfo)
+                        axios.put(`${ApiUrl}/updateUser/${currentUser}`, updatedUserInfo)
                             .then(() => {
                                 setOrderCreated(true);
                                 alert('你订单已成功创建！请联系管理员(大古)进行商品的发放')

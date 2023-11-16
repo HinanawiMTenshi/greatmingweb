@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from "axios";
+import {ApiUrl} from "./config";
 
 function Backup({ currentUser }) {
     const [backupFiles, setBackupFiles] = useState([]);
@@ -7,7 +8,7 @@ function Backup({ currentUser }) {
 
 
     const handleBackup = () => {
-        fetch('http://localhost:3000/backup/make', {
+        fetch(`${ApiUrl}/backup/make`, {
             method: 'GET'  // 使用GET请求
         })
             .then(response => response.json())
@@ -24,7 +25,7 @@ function Backup({ currentUser }) {
 
     // 获取备份文件列表
     useEffect(() => {
-        fetch('http://localhost:3000/backup/list')
+        fetch(`${ApiUrl}/backup/list`)
             .then(response => response.json())
             .then(data => setBackupFiles(data.files || []))  // 设置默认值为空数组
             .catch(error => console.error('获取备份文件列表时发生错误：', error));
@@ -32,12 +33,12 @@ function Backup({ currentUser }) {
 
     // 下载备份文件
     const downloadBackup = (fileName) => {
-        window.open(`http://localhost:3000/backup/download/${fileName}`);
+        window.open(`${ApiUrl}/backup/download/${fileName}`);
     };
 
     // 还原数据库
     const restoreDatabase = (fileName) => {
-        fetch(`http://localhost:3000/backup/restore/${fileName}`, { method: 'POST' })
+        fetch(`${ApiUrl}/backup/restore/${fileName}`, { method: 'POST' })
             .then(response => response.json())
             .then(data => {
                 console.log('数据库还原成功：', data);
@@ -48,7 +49,7 @@ function Backup({ currentUser }) {
 
     // 删除备份文件
     const handleDeleteFile = (filename, type) => {
-        axios.delete(`http://localhost:3000/deleteLogFile/${type}/${filename}`)
+        axios.delete(`${ApiUrl}/deleteLogFile/${type}/${filename}`)
             .then(response => {
                 console.log(`文件 "${filename}" 已成功删除`);
                 // 删除文件后刷新文件列表
@@ -65,7 +66,7 @@ function Backup({ currentUser }) {
 
             const uploadPath = './client/src/backups'; // 设置写死的文件路径
 
-            axios.post(`http://localhost:3000/uploadFile?path=${encodeURIComponent(uploadPath)}`, formData, {
+            axios.post(`${ApiUrl}/uploadFile?path=${encodeURIComponent(uploadPath)}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

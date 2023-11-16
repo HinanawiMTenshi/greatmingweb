@@ -87,7 +87,11 @@ def process_log_files(input_dir, output_dir):
 
 
 # 在Node.js服务器中执行Python脚本时，脚本的当前工作目录与Python脚本所在的目录不同。
-input_directory = r"./client/src/python/log\\"
-output_directory = r"./client/src/python/logreaded\\"
+# Windows平台:
+# input_directory = r"./client/src/python/log\\"
+# output_directory = r"./client/src/python/logreaded\\"
+# Linux平台:
+input_directory = r"./client/src/python/log/"
+output_directory = r"./client/src/python/logreaded/"
 process_log_files(input_directory, output_directory)
 

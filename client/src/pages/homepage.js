@@ -3,6 +3,7 @@ import { BrowserRouter as Router,Routes, Route, Link } from 'react-router-dom';
 import Helmet from "react-helmet"
 import "./homepage.css"
 import axios from "axios";
+import {ApiUrl} from "./config";
 import Admin from "./admin";
 
 function Homepage({currentUser = ""}) {
@@ -18,7 +19,7 @@ function Homepage({currentUser = ""}) {
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://localhost:3000/users/${currentUser}`)
+            axios.get(`${ApiUrl}/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })

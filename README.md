@@ -1,9 +1,21 @@
 # 大明后勤管理网站
-## 使用须知：
-将./src/server.js中的：
-```process.env.PATH = `${path.resolve('./path/to/python')}:${process.env.PATH}`;```
-`'./path/to/python'`替换为你的Python解释器位置
+## 配置:
+package.json：
+`"start2": "concurrently \"npm run server\" \"set PORT=3001 && npm run client\""`
+如果是Linux环境要将`set`换为`export`
+
+./.env:
+`REACT_APP_GreatMingWeb_PYTHON_PATH='/path/to/python'`替换为你的Python解释器位置
 (如果你不知道python解释器的位置，在终端输入:`where python`)
+
+./cilent/.env:
+将`REACT_APP_GreatMingWeb_API_BASE_URL=http://localhost:3000`
+中的`localhost修改为你的本机IP(或配置为域名)
+
+`./client/src/python/LogRead.py`和`./client/src/python/logreaded/mouth.py`
+需要将其中的目录换成Windows/Linux，已经写好，直接取消注释即可(其实有很简单的适配方法，着急上线，下次一定修复！)
+## 使用须知：
+本网站为骑砍·拿破仑战队 大明帝国 自建网站
 ## 数据库脚本
 ### users:
 ```
@@ -50,10 +62,3 @@ CREATE TABLE orders (
 );
 ```
 
-## 未来的工作
-将跨平台等相关设置存储到配置文件中，比如package.json里面的：
-`"start2": "concurrently \"npm run server\" \"set PORT=3001 && npm run client\""`，在Linux中要将`set`换为`export`
-还有开发时使用的localhost:3000也要打包成一个单独的变量然后可以随意设置，而不是像现在这样需要频繁的搜索全部文件进行修改
-注，修改localhost:3000时，注意/client/src/setupProxy里面的不要修改，我不确定该文件是否有用，但是实践证明不需修改
-
-修改bug，需要地方肯定有很多的bug，比如可能有些页面的导航栏的请求网址依旧是压力大古而不是已经写好的界面

@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {ApiUrl} from "./config";
 
 export default function ShopAfter({ currentUser }) {
     const [user, setUser] = useState({});
     useEffect(() => {
         console.log(currentUser);
         if (currentUser) {
-            axios.get(`http://localhost:3000/users/${currentUser}`)
+            axios.get(`${ApiUrl}/users/${currentUser}`)
                 .then(response => {
                     setUser(response.data[0]);
                 })

@@ -2,7 +2,12 @@ import os
 
 # 创建一个字典用于存储每个姓名的次数和总击杀数
 name_data = {}
-directory = r"./client/src/python/logreaded\\"
+# windows:
+# directory = r"./client/src/python/logreaded\\"
+
+# Linux:
+directory = r"./client/src/python/logreaded/"
+
 # 遍历每个月份的文件夹
 for month_folder in os.listdir(directory):
 

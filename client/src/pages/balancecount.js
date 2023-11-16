@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './shopAdmin.css'; // Import the CSS file
+import {ApiUrl} from "./config";
 
 function BalanceCount({ currentUser }) {
     const [balanceFiles, setBalanceFiles] = useState([]);
@@ -15,7 +16,7 @@ function BalanceCount({ currentUser }) {
 
     useEffect(() => {
         // 发送 GET 请求获取文件列表
-        axios.get('http://localhost:3000/balanceFilesInDirectory')
+        axios.get(`${ApiUrl}/balanceFilesInDirectory`)
             .then(response => {
                 setBalanceFiles(response.data);
             })
@@ -34,7 +35,7 @@ function BalanceCount({ currentUser }) {
             const formData = new FormData();
             formData.append('logfile', selectedFile);
 
-            axios.post('http://localhost:3000/uploadLogFileba', formData, {
+            axios.post(`${ApiUrl}/uploadLogFileba`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -55,7 +56,7 @@ function BalanceCount({ currentUser }) {
     const handleDownloadFile = (filename, type) => {
         // 创建一个下载链接并触发点击事件以下载文件
         const downloadLink = document.createElement('a');
-        const downloadUrl = `http://localhost:3000/downloadLogFile/${type}/${filename}`;
+        const downloadUrl = `${ApiUrl}/downloadLogFile/${type}/${filename}`;
     
         downloadLink.href = downloadUrl;
         downloadLink.download = filename;
@@ -63,7 +64,7 @@ function BalanceCount({ currentUser }) {
     };
 
     const handleDeleteFile = (filename, type) => {
-        axios.delete(`http://localhost:3000/deleteLogFile/${type}/${filename}`)
+        axios.delete(`${ApiUrl}/deleteLogFile/${type}/${filename}`)
           .then(response => {
             console.log(`文件 "${filename}" 已成功删除`);
             // 删除文件后刷新文件列表
@@ -76,7 +77,7 @@ function BalanceCount({ currentUser }) {
 
       const readbalanceFile = (filename) => {
         // 调用读取文件的 API
-        axios.get(`http://localhost:3000/readBalanceFile/${filename}`)
+        axios.get(`${ApiUrl}/readBalanceFile/${filename}`)
             .then(response => {
                 // 从 API 响应中获取数据
                 const data = response.data;
@@ -184,7 +185,7 @@ function BalanceCount({ currentUser }) {
 
     // 新添加的函数，用于调用API增加balance
     const increaseBalanceByUsername = (username, count) => {
-        return axios.post('http://localhost:3000/increaseBalance', {
+        return axios.post(`${ApiUrl}/increaseBalance`, {
             username,
             count
         });

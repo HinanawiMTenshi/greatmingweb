@@ -12,8 +12,8 @@ const app = express();
 const { exec } = require('child_process');
 
 //请将替换为你的Python解释器位置
-const pythonPath = 'C:\\Users\\JiangHuDao\\AppData\\Local\\Programs\\Python\\Python311\\python.exe'
-
+// const pythonPath = process.env.REACT_APP_GreatMingWeb_PYTHON_PATH;
+const pythonPath ='/usr/bin/python'
 
 // 使用 body-parser 只解析 application/x-www-form-urlencoded 类型的数据
 app.use(bodyParser.urlencoded({ extended: true }));
